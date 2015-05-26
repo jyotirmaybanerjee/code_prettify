@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SQL pretify</title>
+    <meta name="author" content="Jyotirmay Banerjee" />
+    <meta name="description" content="SQL pretify" />
+    <link rel="stylesheet" media="screen" href="prettify.css">
+</head>
+
+<body>
+<pre class="prettyprint">
+<code class="language-sql">
+select round_to_second(timestamp) as X, 100.00*count(distinct case when decisions.ResellerFraudStatus = 'ACCEPT' then data.groupid end) / count(distinct data.groupid) as Y1 FROM store.aos a lateral view json_tuple(a.event_json, 'workflows', 'data') event as workflows, data lateral view json_tuple(event.data, 'GroupID') data as groupid lateral view json_tuple(event.workflows, 'validation') workflows as live lateral view json_tuple(workflows.live, 'decisions', 'output') live as decisions, output lateral view json_tuple(live.decisions, 'ResellerFraudStatus') decisions as ResellerFraudStatus WHERE decisions.ResellerFraudStatus is not null and from_unixtime(cast(timestamp / 1000 as bigint)) between '2014-10-03 18:20:00' and '2014-10-03 18:22:00' group by round_to_second(timestamp) having count(distinct case when decisions.ResellerFraudStatus = 'ACCEPT' then data.groupid end) is not null ORDER BY X 
+</code>
+</pre>
+
+    <script src="run_prettify.js"></script>
+    <script src="lang-sql.js"></script>
+</body>
+
+</html>

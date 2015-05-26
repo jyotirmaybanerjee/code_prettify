@@ -1,0 +1,11 @@
+{
+  "name": "code-pretify",
+  "version": "1.0.0",
+  "description": "Pretify different type of source code like sql, c, c++, java etc",
+  "main": ["run_prettify.js", "lang-sql.js"],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jyotirmay Banerjee",
+  "license": "ISC"
+}
